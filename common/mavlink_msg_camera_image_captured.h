@@ -13,7 +13,7 @@ typedef struct __mavlink_camera_image_captured_t {
  int32_t relative_alt; /*< Altitude above ground in meters, expressed as * 1E3 where image was taken*/
  float q[4]; /*< Quaternion of camera orientation (w, x, y, z order, zero-rotation is 0, 0, 0, 0)*/
  int32_t image_index; /*< Zero based index of this image (image count since armed -1)*/
- uint8_t camera_id; /*< Camera ID (1 for first, 2 for second, etc.)*/
+ uint8_t camera_id; /*< Camera ID if there are multiple*/
  int8_t capture_result; /*< Boolean indicating success (1) or failure (0) while capturing this image.*/
  char file_url[205]; /*< URL of image taken. Either local storage or http://foo.jpg if camera provides an HTTP interface.*/
 }) mavlink_camera_image_captured_t;
@@ -34,15 +34,15 @@ typedef struct __mavlink_camera_image_captured_t {
     263, \
     "CAMERA_IMAGE_CAPTURED", \
     11, \
-    {  { "time_utc", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_camera_image_captured_t, time_utc) }, \
-         { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_camera_image_captured_t, time_boot_ms) }, \
+    {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_camera_image_captured_t, time_boot_ms) }, \
+         { "time_utc", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_camera_image_captured_t, time_utc) }, \
+         { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 48, offsetof(mavlink_camera_image_captured_t, camera_id) }, \
          { "lat", NULL, MAVLINK_TYPE_INT32_T, 0, 12, offsetof(mavlink_camera_image_captured_t, lat) }, \
          { "lon", NULL, MAVLINK_TYPE_INT32_T, 0, 16, offsetof(mavlink_camera_image_captured_t, lon) }, \
          { "alt", NULL, MAVLINK_TYPE_INT32_T, 0, 20, offsetof(mavlink_camera_image_captured_t, alt) }, \
          { "relative_alt", NULL, MAVLINK_TYPE_INT32_T, 0, 24, offsetof(mavlink_camera_image_captured_t, relative_alt) }, \
          { "q", NULL, MAVLINK_TYPE_FLOAT, 4, 28, offsetof(mavlink_camera_image_captured_t, q) }, \
          { "image_index", NULL, MAVLINK_TYPE_INT32_T, 0, 44, offsetof(mavlink_camera_image_captured_t, image_index) }, \
-         { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 48, offsetof(mavlink_camera_image_captured_t, camera_id) }, \
          { "capture_result", NULL, MAVLINK_TYPE_INT8_T, 0, 49, offsetof(mavlink_camera_image_captured_t, capture_result) }, \
          { "file_url", NULL, MAVLINK_TYPE_CHAR, 205, 50, offsetof(mavlink_camera_image_captured_t, file_url) }, \
          } \
@@ -51,15 +51,15 @@ typedef struct __mavlink_camera_image_captured_t {
 #define MAVLINK_MESSAGE_INFO_CAMERA_IMAGE_CAPTURED { \
     "CAMERA_IMAGE_CAPTURED", \
     11, \
-    {  { "time_utc", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_camera_image_captured_t, time_utc) }, \
-         { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_camera_image_captured_t, time_boot_ms) }, \
+    {  { "time_boot_ms", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_camera_image_captured_t, time_boot_ms) }, \
+         { "time_utc", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_camera_image_captured_t, time_utc) }, \
+         { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 48, offsetof(mavlink_camera_image_captured_t, camera_id) }, \
          { "lat", NULL, MAVLINK_TYPE_INT32_T, 0, 12, offsetof(mavlink_camera_image_captured_t, lat) }, \
          { "lon", NULL, MAVLINK_TYPE_INT32_T, 0, 16, offsetof(mavlink_camera_image_captured_t, lon) }, \
          { "alt", NULL, MAVLINK_TYPE_INT32_T, 0, 20, offsetof(mavlink_camera_image_captured_t, alt) }, \
          { "relative_alt", NULL, MAVLINK_TYPE_INT32_T, 0, 24, offsetof(mavlink_camera_image_captured_t, relative_alt) }, \
          { "q", NULL, MAVLINK_TYPE_FLOAT, 4, 28, offsetof(mavlink_camera_image_captured_t, q) }, \
          { "image_index", NULL, MAVLINK_TYPE_INT32_T, 0, 44, offsetof(mavlink_camera_image_captured_t, image_index) }, \
-         { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 48, offsetof(mavlink_camera_image_captured_t, camera_id) }, \
          { "capture_result", NULL, MAVLINK_TYPE_INT8_T, 0, 49, offsetof(mavlink_camera_image_captured_t, capture_result) }, \
          { "file_url", NULL, MAVLINK_TYPE_CHAR, 205, 50, offsetof(mavlink_camera_image_captured_t, file_url) }, \
          } \
@@ -74,7 +74,7 @@ typedef struct __mavlink_camera_image_captured_t {
  *
  * @param time_boot_ms Timestamp (milliseconds since system boot)
  * @param time_utc Timestamp (microseconds since UNIX epoch) in UTC. 0 for unknown.
- * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param camera_id Camera ID if there are multiple
  * @param lat Latitude, expressed as degrees * 1E7 where image was taken
  * @param lon Longitude, expressed as degrees * 1E7 where capture was taken
  * @param alt Altitude in meters, expressed as * 1E3 (AMSL, not WGS84) where image was taken
@@ -130,7 +130,7 @@ static inline uint16_t mavlink_msg_camera_image_captured_pack(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param time_boot_ms Timestamp (milliseconds since system boot)
  * @param time_utc Timestamp (microseconds since UNIX epoch) in UTC. 0 for unknown.
- * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param camera_id Camera ID if there are multiple
  * @param lat Latitude, expressed as degrees * 1E7 where image was taken
  * @param lon Longitude, expressed as degrees * 1E7 where capture was taken
  * @param alt Altitude in meters, expressed as * 1E3 (AMSL, not WGS84) where image was taken
@@ -212,7 +212,7 @@ static inline uint16_t mavlink_msg_camera_image_captured_encode_chan(uint8_t sys
  *
  * @param time_boot_ms Timestamp (milliseconds since system boot)
  * @param time_utc Timestamp (microseconds since UNIX epoch) in UTC. 0 for unknown.
- * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param camera_id Camera ID if there are multiple
  * @param lat Latitude, expressed as degrees * 1E7 where image was taken
  * @param lon Longitude, expressed as degrees * 1E7 where capture was taken
  * @param alt Altitude in meters, expressed as * 1E3 (AMSL, not WGS84) where image was taken
@@ -341,7 +341,7 @@ static inline uint64_t mavlink_msg_camera_image_captured_get_time_utc(const mavl
 /**
  * @brief Get field camera_id from camera_image_captured message
  *
- * @return Camera ID (1 for first, 2 for second, etc.)
+ * @return Camera ID if there are multiple
  */
 static inline uint8_t mavlink_msg_camera_image_captured_get_camera_id(const mavlink_message_t* msg)
 {

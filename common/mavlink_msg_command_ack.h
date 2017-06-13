@@ -11,12 +11,12 @@ typedef struct __mavlink_command_ack_t {
 }) mavlink_command_ack_t;
 
 #define MAVLINK_MSG_ID_COMMAND_ACK_LEN 4
-#define MAVLINK_MSG_ID_COMMAND_ACK_MIN_LEN 3
+#define MAVLINK_MSG_ID_COMMAND_ACK_MIN_LEN 4
 #define MAVLINK_MSG_ID_77_LEN 4
-#define MAVLINK_MSG_ID_77_MIN_LEN 3
+#define MAVLINK_MSG_ID_77_MIN_LEN 4
 
-#define MAVLINK_MSG_ID_COMMAND_ACK_CRC 143
-#define MAVLINK_MSG_ID_77_CRC 143
+#define MAVLINK_MSG_ID_COMMAND_ACK_CRC 189
+#define MAVLINK_MSG_ID_77_CRC 189
 
 
 
