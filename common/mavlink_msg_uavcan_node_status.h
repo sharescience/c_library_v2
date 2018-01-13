@@ -30,10 +30,10 @@ typedef struct __mavlink_uavcan_node_status_t {
     6, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_uavcan_node_status_t, time_usec) }, \
          { "uptime_sec", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_uavcan_node_status_t, uptime_sec) }, \
-         { "vendor_specific_status_code", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_uavcan_node_status_t, vendor_specific_status_code) }, \
          { "health", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_uavcan_node_status_t, health) }, \
          { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_uavcan_node_status_t, mode) }, \
          { "sub_mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_uavcan_node_status_t, sub_mode) }, \
+         { "vendor_specific_status_code", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_uavcan_node_status_t, vendor_specific_status_code) }, \
          } \
 }
 #else
@@ -42,10 +42,10 @@ typedef struct __mavlink_uavcan_node_status_t {
     6, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_uavcan_node_status_t, time_usec) }, \
          { "uptime_sec", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_uavcan_node_status_t, uptime_sec) }, \
-         { "vendor_specific_status_code", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_uavcan_node_status_t, vendor_specific_status_code) }, \
          { "health", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_uavcan_node_status_t, health) }, \
          { "mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_uavcan_node_status_t, mode) }, \
          { "sub_mode", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_uavcan_node_status_t, sub_mode) }, \
+         { "vendor_specific_status_code", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_uavcan_node_status_t, vendor_specific_status_code) }, \
          } \
 }
 #endif
@@ -58,14 +58,14 @@ typedef struct __mavlink_uavcan_node_status_t {
  *
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param vendor_specific_status_code Vendor-specific status information.
  * @param health Generalized node health status.
  * @param mode Generalized operating mode.
  * @param sub_mode Not used currently.
+ * @param vendor_specific_status_code Vendor-specific status information.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uavcan_node_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint32_t uptime_sec, uint16_t vendor_specific_status_code, uint8_t health, uint8_t mode, uint8_t sub_mode)
+                               uint64_t time_usec, uint32_t uptime_sec, uint8_t health, uint8_t mode, uint8_t sub_mode, uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN];
@@ -101,15 +101,15 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param vendor_specific_status_code Vendor-specific status information.
  * @param health Generalized node health status.
  * @param mode Generalized operating mode.
  * @param sub_mode Not used currently.
+ * @param vendor_specific_status_code Vendor-specific status information.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uavcan_node_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint32_t uptime_sec,uint16_t vendor_specific_status_code,uint8_t health,uint8_t mode,uint8_t sub_mode)
+                                   uint64_t time_usec,uint32_t uptime_sec,uint8_t health,uint8_t mode,uint8_t sub_mode,uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN];
@@ -147,7 +147,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_pack_chan(uint8_t system_i
  */
 static inline uint16_t mavlink_msg_uavcan_node_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
-    return mavlink_msg_uavcan_node_status_pack(system_id, component_id, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->vendor_specific_status_code, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode);
+    return mavlink_msg_uavcan_node_status_pack(system_id, component_id, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 }
 
 /**
@@ -161,7 +161,7 @@ static inline uint16_t mavlink_msg_uavcan_node_status_encode(uint8_t system_id, 
  */
 static inline uint16_t mavlink_msg_uavcan_node_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
-    return mavlink_msg_uavcan_node_status_pack_chan(system_id, component_id, chan, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->vendor_specific_status_code, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode);
+    return mavlink_msg_uavcan_node_status_pack_chan(system_id, component_id, chan, msg, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 }
 
 /**
@@ -170,14 +170,14 @@ static inline uint16_t mavlink_msg_uavcan_node_status_encode_chan(uint8_t system
  *
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param vendor_specific_status_code Vendor-specific status information.
  * @param health Generalized node health status.
  * @param mode Generalized operating mode.
  * @param sub_mode Not used currently.
+ * @param vendor_specific_status_code Vendor-specific status information.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uavcan_node_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, uint16_t vendor_specific_status_code, uint8_t health, uint8_t mode, uint8_t sub_mode)
+static inline void mavlink_msg_uavcan_node_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, uint8_t health, uint8_t mode, uint8_t sub_mode, uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN];
@@ -210,7 +210,7 @@ static inline void mavlink_msg_uavcan_node_status_send(mavlink_channel_t chan, u
 static inline void mavlink_msg_uavcan_node_status_send_struct(mavlink_channel_t chan, const mavlink_uavcan_node_status_t* uavcan_node_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uavcan_node_status_send(chan, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->vendor_specific_status_code, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode);
+    mavlink_msg_uavcan_node_status_send(chan, uavcan_node_status->time_usec, uavcan_node_status->uptime_sec, uavcan_node_status->health, uavcan_node_status->mode, uavcan_node_status->sub_mode, uavcan_node_status->vendor_specific_status_code);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS, (const char *)uavcan_node_status, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_STATUS_CRC);
 #endif
@@ -224,7 +224,7 @@ static inline void mavlink_msg_uavcan_node_status_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uavcan_node_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, uint16_t vendor_specific_status_code, uint8_t health, uint8_t mode, uint8_t sub_mode)
+static inline void mavlink_msg_uavcan_node_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, uint8_t health, uint8_t mode, uint8_t sub_mode, uint16_t vendor_specific_status_code)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -276,16 +276,6 @@ static inline uint32_t mavlink_msg_uavcan_node_status_get_uptime_sec(const mavli
 }
 
 /**
- * @brief Get field vendor_specific_status_code from uavcan_node_status message
- *
- * @return Vendor-specific status information.
- */
-static inline uint16_t mavlink_msg_uavcan_node_status_get_vendor_specific_status_code(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint16_t(msg,  12);
-}
-
-/**
  * @brief Get field health from uavcan_node_status message
  *
  * @return Generalized node health status.
@@ -313,6 +303,16 @@ static inline uint8_t mavlink_msg_uavcan_node_status_get_mode(const mavlink_mess
 static inline uint8_t mavlink_msg_uavcan_node_status_get_sub_mode(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  16);
+}
+
+/**
+ * @brief Get field vendor_specific_status_code from uavcan_node_status message
+ *
+ * @return Vendor-specific status information.
+ */
+static inline uint16_t mavlink_msg_uavcan_node_status_get_vendor_specific_status_code(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  12);
 }
 
 /**
