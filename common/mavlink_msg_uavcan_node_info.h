@@ -34,13 +34,13 @@ typedef struct __mavlink_uavcan_node_info_t {
     9, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_uavcan_node_info_t, time_usec) }, \
          { "uptime_sec", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_uavcan_node_info_t, uptime_sec) }, \
-         { "sw_vcs_commit", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_uavcan_node_info_t, sw_vcs_commit) }, \
          { "name", NULL, MAVLINK_TYPE_CHAR, 80, 16, offsetof(mavlink_uavcan_node_info_t, name) }, \
          { "hw_version_major", NULL, MAVLINK_TYPE_UINT8_T, 0, 96, offsetof(mavlink_uavcan_node_info_t, hw_version_major) }, \
          { "hw_version_minor", NULL, MAVLINK_TYPE_UINT8_T, 0, 97, offsetof(mavlink_uavcan_node_info_t, hw_version_minor) }, \
          { "hw_unique_id", NULL, MAVLINK_TYPE_UINT8_T, 16, 98, offsetof(mavlink_uavcan_node_info_t, hw_unique_id) }, \
          { "sw_version_major", NULL, MAVLINK_TYPE_UINT8_T, 0, 114, offsetof(mavlink_uavcan_node_info_t, sw_version_major) }, \
          { "sw_version_minor", NULL, MAVLINK_TYPE_UINT8_T, 0, 115, offsetof(mavlink_uavcan_node_info_t, sw_version_minor) }, \
+         { "sw_vcs_commit", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_uavcan_node_info_t, sw_vcs_commit) }, \
          } \
 }
 #else
@@ -49,13 +49,13 @@ typedef struct __mavlink_uavcan_node_info_t {
     9, \
     {  { "time_usec", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_uavcan_node_info_t, time_usec) }, \
          { "uptime_sec", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_uavcan_node_info_t, uptime_sec) }, \
-         { "sw_vcs_commit", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_uavcan_node_info_t, sw_vcs_commit) }, \
          { "name", NULL, MAVLINK_TYPE_CHAR, 80, 16, offsetof(mavlink_uavcan_node_info_t, name) }, \
          { "hw_version_major", NULL, MAVLINK_TYPE_UINT8_T, 0, 96, offsetof(mavlink_uavcan_node_info_t, hw_version_major) }, \
          { "hw_version_minor", NULL, MAVLINK_TYPE_UINT8_T, 0, 97, offsetof(mavlink_uavcan_node_info_t, hw_version_minor) }, \
          { "hw_unique_id", NULL, MAVLINK_TYPE_UINT8_T, 16, 98, offsetof(mavlink_uavcan_node_info_t, hw_unique_id) }, \
          { "sw_version_major", NULL, MAVLINK_TYPE_UINT8_T, 0, 114, offsetof(mavlink_uavcan_node_info_t, sw_version_major) }, \
          { "sw_version_minor", NULL, MAVLINK_TYPE_UINT8_T, 0, 115, offsetof(mavlink_uavcan_node_info_t, sw_version_minor) }, \
+         { "sw_vcs_commit", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_uavcan_node_info_t, sw_vcs_commit) }, \
          } \
 }
 #endif
@@ -68,17 +68,17 @@ typedef struct __mavlink_uavcan_node_info_t {
  *
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  * @param name Node name string. For example, "sapog.px4.io".
  * @param hw_version_major Hardware major version number.
  * @param hw_version_minor Hardware minor version number.
  * @param hw_unique_id Hardware unique 128-bit ID.
  * @param sw_version_major Software major version number.
  * @param sw_version_minor Software minor version number.
+ * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t time_usec, uint32_t uptime_sec, uint32_t sw_vcs_commit, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor)
+                               uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -118,18 +118,18 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  * @param name Node name string. For example, "sapog.px4.io".
  * @param hw_version_major Hardware major version number.
  * @param hw_version_minor Hardware minor version number.
  * @param hw_unique_id Hardware unique 128-bit ID.
  * @param sw_version_major Software major version number.
  * @param sw_version_minor Software minor version number.
+ * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t time_usec,uint32_t uptime_sec,uint32_t sw_vcs_commit,const char *name,uint8_t hw_version_major,uint8_t hw_version_minor,const uint8_t *hw_unique_id,uint8_t sw_version_major,uint8_t sw_version_minor)
+                                   uint64_t time_usec,uint32_t uptime_sec,const char *name,uint8_t hw_version_major,uint8_t hw_version_minor,const uint8_t *hw_unique_id,uint8_t sw_version_major,uint8_t sw_version_minor,uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -171,7 +171,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_pack_chan(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
-    return mavlink_msg_uavcan_node_info_pack(system_id, component_id, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->sw_vcs_commit, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor);
+    return mavlink_msg_uavcan_node_info_pack(system_id, component_id, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
 
 /**
@@ -185,7 +185,7 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
-    return mavlink_msg_uavcan_node_info_pack_chan(system_id, component_id, chan, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->sw_vcs_commit, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor);
+    return mavlink_msg_uavcan_node_info_pack_chan(system_id, component_id, chan, msg, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 }
 
 /**
@@ -194,17 +194,17 @@ static inline uint16_t mavlink_msg_uavcan_node_info_encode_chan(uint8_t system_i
  *
  * @param time_usec Timestamp (microseconds since UNIX epoch or microseconds since system boot)
  * @param uptime_sec The number of seconds since the start-up of the node.
- * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  * @param name Node name string. For example, "sapog.px4.io".
  * @param hw_version_major Hardware major version number.
  * @param hw_version_minor Hardware minor version number.
  * @param hw_unique_id Hardware unique 128-bit ID.
  * @param sw_version_major Software major version number.
  * @param sw_version_minor Software minor version number.
+ * @param sw_vcs_commit Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, uint32_t sw_vcs_commit, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor)
+static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN];
@@ -241,7 +241,7 @@ static inline void mavlink_msg_uavcan_node_info_send(mavlink_channel_t chan, uin
 static inline void mavlink_msg_uavcan_node_info_send_struct(mavlink_channel_t chan, const mavlink_uavcan_node_info_t* uavcan_node_info)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_uavcan_node_info_send(chan, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->sw_vcs_commit, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor);
+    mavlink_msg_uavcan_node_info_send(chan, uavcan_node_info->time_usec, uavcan_node_info->uptime_sec, uavcan_node_info->name, uavcan_node_info->hw_version_major, uavcan_node_info->hw_version_minor, uavcan_node_info->hw_unique_id, uavcan_node_info->sw_version_major, uavcan_node_info->sw_version_minor, uavcan_node_info->sw_vcs_commit);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_UAVCAN_NODE_INFO, (const char *)uavcan_node_info, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_MIN_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_LEN, MAVLINK_MSG_ID_UAVCAN_NODE_INFO_CRC);
 #endif
@@ -255,7 +255,7 @@ static inline void mavlink_msg_uavcan_node_info_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_uavcan_node_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, uint32_t sw_vcs_commit, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor)
+static inline void mavlink_msg_uavcan_node_info_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t time_usec, uint32_t uptime_sec, const char *name, uint8_t hw_version_major, uint8_t hw_version_minor, const uint8_t *hw_unique_id, uint8_t sw_version_major, uint8_t sw_version_minor, uint32_t sw_vcs_commit)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -308,16 +308,6 @@ static inline uint64_t mavlink_msg_uavcan_node_info_get_time_usec(const mavlink_
 static inline uint32_t mavlink_msg_uavcan_node_info_get_uptime_sec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg,  8);
-}
-
-/**
- * @brief Get field sw_vcs_commit from uavcan_node_info message
- *
- * @return Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
- */
-static inline uint32_t mavlink_msg_uavcan_node_info_get_sw_vcs_commit(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint32_t(msg,  12);
 }
 
 /**
@@ -378,6 +368,16 @@ static inline uint8_t mavlink_msg_uavcan_node_info_get_sw_version_major(const ma
 static inline uint8_t mavlink_msg_uavcan_node_info_get_sw_version_minor(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  115);
+}
+
+/**
+ * @brief Get field sw_vcs_commit from uavcan_node_info message
+ *
+ * @return Version control system (VCS) revision identifier (e.g. git short commit hash). Zero if unknown.
+ */
+static inline uint32_t mavlink_msg_uavcan_node_info_get_sw_vcs_commit(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  12);
 }
 
 /**
