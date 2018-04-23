@@ -11,7 +11,7 @@ typedef struct __mavlink_storage_information_t {
  float available_capacity; /*< Available capacity in MiB*/
  float read_speed; /*< Read speed in MiB/s*/
  float write_speed; /*< Write speed in MiB/s*/
- uint8_t storage_id; /*< Storage ID if there are multiple*/
+ uint8_t storage_id; /*< Storage ID (1 for first, 2 for second, etc.)*/
  uint8_t storage_count; /*< Number of storage devices*/
  uint8_t status; /*< Status of storage (0 not available, 1 unformatted, 2 formatted)*/
 }) mavlink_storage_information_t;
@@ -66,7 +66,7 @@ typedef struct __mavlink_storage_information_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param time_boot_ms Timestamp (milliseconds since system boot)
- * @param storage_id Storage ID if there are multiple
+ * @param storage_id Storage ID (1 for first, 2 for second, etc.)
  * @param storage_count Number of storage devices
  * @param status Status of storage (0 not available, 1 unformatted, 2 formatted)
  * @param total_capacity Total capacity in MiB
@@ -118,7 +118,7 @@ static inline uint16_t mavlink_msg_storage_information_pack(uint8_t system_id, u
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param time_boot_ms Timestamp (milliseconds since system boot)
- * @param storage_id Storage ID if there are multiple
+ * @param storage_id Storage ID (1 for first, 2 for second, etc.)
  * @param storage_count Number of storage devices
  * @param status Status of storage (0 not available, 1 unformatted, 2 formatted)
  * @param total_capacity Total capacity in MiB
@@ -196,7 +196,7 @@ static inline uint16_t mavlink_msg_storage_information_encode_chan(uint8_t syste
  * @param chan MAVLink channel to send the message
  *
  * @param time_boot_ms Timestamp (milliseconds since system boot)
- * @param storage_id Storage ID if there are multiple
+ * @param storage_id Storage ID (1 for first, 2 for second, etc.)
  * @param storage_count Number of storage devices
  * @param status Status of storage (0 not available, 1 unformatted, 2 formatted)
  * @param total_capacity Total capacity in MiB
@@ -310,7 +310,7 @@ static inline uint32_t mavlink_msg_storage_information_get_time_boot_ms(const ma
 /**
  * @brief Get field storage_id from storage_information message
  *
- * @return Storage ID if there are multiple
+ * @return Storage ID (1 for first, 2 for second, etc.)
  */
 static inline uint8_t mavlink_msg_storage_information_get_storage_id(const mavlink_message_t* msg)
 {
