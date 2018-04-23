@@ -7,7 +7,7 @@ MAVPACKED(
 typedef struct __mavlink_command_ack_t {
  uint16_t command; /*< Command ID, as defined by MAV_CMD enum.*/
  uint8_t result; /*< See MAV_RESULT enum*/
- uint8_t progress; /*< WIP: Needs to be set when MAV_RESULT is MAV_RESULT_IN_PROGRESS, values from 0 to 100 for progress percentage, 255 for unknown progress.*/
+ uint8_t progress; /*< WIP: Also used as result_param1, it can be set with a enum containing the errors reasons of why the command was denied or the progress percentage or 255 if unknown the progress when result is MAV_RESULT_IN_PROGRESS.*/
  int32_t result_param2; /*< WIP: Additional parameter of the result, example: which parameter of MAV_CMD_NAV_WAYPOINT caused it to be denied.*/
  uint8_t target_system; /*< WIP: System which requested the command to be executed*/
  uint8_t target_component; /*< WIP: Component which requested the command to be executed*/
@@ -58,7 +58,7 @@ typedef struct __mavlink_command_ack_t {
  *
  * @param command Command ID, as defined by MAV_CMD enum.
  * @param result See MAV_RESULT enum
- * @param progress WIP: Needs to be set when MAV_RESULT is MAV_RESULT_IN_PROGRESS, values from 0 to 100 for progress percentage, 255 for unknown progress.
+ * @param progress WIP: Also used as result_param1, it can be set with a enum containing the errors reasons of why the command was denied or the progress percentage or 255 if unknown the progress when result is MAV_RESULT_IN_PROGRESS.
  * @param result_param2 WIP: Additional parameter of the result, example: which parameter of MAV_CMD_NAV_WAYPOINT caused it to be denied.
  * @param target_system WIP: System which requested the command to be executed
  * @param target_component WIP: Component which requested the command to be executed
@@ -101,7 +101,7 @@ static inline uint16_t mavlink_msg_command_ack_pack(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param command Command ID, as defined by MAV_CMD enum.
  * @param result See MAV_RESULT enum
- * @param progress WIP: Needs to be set when MAV_RESULT is MAV_RESULT_IN_PROGRESS, values from 0 to 100 for progress percentage, 255 for unknown progress.
+ * @param progress WIP: Also used as result_param1, it can be set with a enum containing the errors reasons of why the command was denied or the progress percentage or 255 if unknown the progress when result is MAV_RESULT_IN_PROGRESS.
  * @param result_param2 WIP: Additional parameter of the result, example: which parameter of MAV_CMD_NAV_WAYPOINT caused it to be denied.
  * @param target_system WIP: System which requested the command to be executed
  * @param target_component WIP: Component which requested the command to be executed
@@ -170,7 +170,7 @@ static inline uint16_t mavlink_msg_command_ack_encode_chan(uint8_t system_id, ui
  *
  * @param command Command ID, as defined by MAV_CMD enum.
  * @param result See MAV_RESULT enum
- * @param progress WIP: Needs to be set when MAV_RESULT is MAV_RESULT_IN_PROGRESS, values from 0 to 100 for progress percentage, 255 for unknown progress.
+ * @param progress WIP: Also used as result_param1, it can be set with a enum containing the errors reasons of why the command was denied or the progress percentage or 255 if unknown the progress when result is MAV_RESULT_IN_PROGRESS.
  * @param result_param2 WIP: Additional parameter of the result, example: which parameter of MAV_CMD_NAV_WAYPOINT caused it to be denied.
  * @param target_system WIP: System which requested the command to be executed
  * @param target_component WIP: Component which requested the command to be executed
@@ -278,7 +278,7 @@ static inline uint8_t mavlink_msg_command_ack_get_result(const mavlink_message_t
 /**
  * @brief Get field progress from command_ack message
  *
- * @return WIP: Needs to be set when MAV_RESULT is MAV_RESULT_IN_PROGRESS, values from 0 to 100 for progress percentage, 255 for unknown progress.
+ * @return WIP: Also used as result_param1, it can be set with a enum containing the errors reasons of why the command was denied or the progress percentage or 255 if unknown the progress when result is MAV_RESULT_IN_PROGRESS.
  */
 static inline uint8_t mavlink_msg_command_ack_get_progress(const mavlink_message_t* msg)
 {

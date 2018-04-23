@@ -31,14 +31,14 @@ typedef struct __mavlink_set_video_stream_settings_t {
     270, \
     "SET_VIDEO_STREAM_SETTINGS", \
     9, \
-    {  { "framerate", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_set_video_stream_settings_t, framerate) }, \
-         { "bitrate", NULL, MAVLINK_TYPE_UINT32_T, 0, 4, offsetof(mavlink_set_video_stream_settings_t, bitrate) }, \
-         { "resolution_h", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_set_video_stream_settings_t, resolution_h) }, \
-         { "resolution_v", NULL, MAVLINK_TYPE_UINT16_T, 0, 10, offsetof(mavlink_set_video_stream_settings_t, resolution_v) }, \
-         { "rotation", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_set_video_stream_settings_t, rotation) }, \
-         { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_set_video_stream_settings_t, target_system) }, \
+    {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_set_video_stream_settings_t, target_system) }, \
          { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_set_video_stream_settings_t, target_component) }, \
          { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_set_video_stream_settings_t, camera_id) }, \
+         { "framerate", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_set_video_stream_settings_t, framerate) }, \
+         { "resolution_h", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_set_video_stream_settings_t, resolution_h) }, \
+         { "resolution_v", NULL, MAVLINK_TYPE_UINT16_T, 0, 10, offsetof(mavlink_set_video_stream_settings_t, resolution_v) }, \
+         { "bitrate", NULL, MAVLINK_TYPE_UINT32_T, 0, 4, offsetof(mavlink_set_video_stream_settings_t, bitrate) }, \
+         { "rotation", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_set_video_stream_settings_t, rotation) }, \
          { "uri", NULL, MAVLINK_TYPE_CHAR, 230, 17, offsetof(mavlink_set_video_stream_settings_t, uri) }, \
          } \
 }
@@ -46,14 +46,14 @@ typedef struct __mavlink_set_video_stream_settings_t {
 #define MAVLINK_MESSAGE_INFO_SET_VIDEO_STREAM_SETTINGS { \
     "SET_VIDEO_STREAM_SETTINGS", \
     9, \
-    {  { "framerate", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_set_video_stream_settings_t, framerate) }, \
-         { "bitrate", NULL, MAVLINK_TYPE_UINT32_T, 0, 4, offsetof(mavlink_set_video_stream_settings_t, bitrate) }, \
-         { "resolution_h", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_set_video_stream_settings_t, resolution_h) }, \
-         { "resolution_v", NULL, MAVLINK_TYPE_UINT16_T, 0, 10, offsetof(mavlink_set_video_stream_settings_t, resolution_v) }, \
-         { "rotation", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_set_video_stream_settings_t, rotation) }, \
-         { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_set_video_stream_settings_t, target_system) }, \
+    {  { "target_system", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_set_video_stream_settings_t, target_system) }, \
          { "target_component", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_set_video_stream_settings_t, target_component) }, \
          { "camera_id", NULL, MAVLINK_TYPE_UINT8_T, 0, 16, offsetof(mavlink_set_video_stream_settings_t, camera_id) }, \
+         { "framerate", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_set_video_stream_settings_t, framerate) }, \
+         { "resolution_h", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_set_video_stream_settings_t, resolution_h) }, \
+         { "resolution_v", NULL, MAVLINK_TYPE_UINT16_T, 0, 10, offsetof(mavlink_set_video_stream_settings_t, resolution_v) }, \
+         { "bitrate", NULL, MAVLINK_TYPE_UINT32_T, 0, 4, offsetof(mavlink_set_video_stream_settings_t, bitrate) }, \
+         { "rotation", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_set_video_stream_settings_t, rotation) }, \
          { "uri", NULL, MAVLINK_TYPE_CHAR, 230, 17, offsetof(mavlink_set_video_stream_settings_t, uri) }, \
          } \
 }
@@ -65,19 +65,19 @@ typedef struct __mavlink_set_video_stream_settings_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param framerate Frames per second (set to -1 for highest framerate possible)
- * @param bitrate Bit rate in bits per second (set to -1 for auto)
- * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
- * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
- * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param target_system system ID of the target
  * @param target_component component ID of the target
  * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param framerate Frames per second (set to -1 for highest framerate possible)
+ * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
+ * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
+ * @param bitrate Bit rate in bits per second (set to -1 for auto)
+ * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param uri Video stream URI
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_video_stream_settings_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float framerate, uint32_t bitrate, uint16_t resolution_h, uint16_t resolution_v, uint16_t rotation, uint8_t target_system, uint8_t target_component, uint8_t camera_id, const char *uri)
+                               uint8_t target_system, uint8_t target_component, uint8_t camera_id, float framerate, uint16_t resolution_h, uint16_t resolution_v, uint32_t bitrate, uint16_t rotation, const char *uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_LEN];
@@ -115,20 +115,20 @@ static inline uint16_t mavlink_msg_set_video_stream_settings_pack(uint8_t system
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param framerate Frames per second (set to -1 for highest framerate possible)
- * @param bitrate Bit rate in bits per second (set to -1 for auto)
- * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
- * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
- * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param target_system system ID of the target
  * @param target_component component ID of the target
  * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param framerate Frames per second (set to -1 for highest framerate possible)
+ * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
+ * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
+ * @param bitrate Bit rate in bits per second (set to -1 for auto)
+ * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param uri Video stream URI
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_set_video_stream_settings_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float framerate,uint32_t bitrate,uint16_t resolution_h,uint16_t resolution_v,uint16_t rotation,uint8_t target_system,uint8_t target_component,uint8_t camera_id,const char *uri)
+                                   uint8_t target_system,uint8_t target_component,uint8_t camera_id,float framerate,uint16_t resolution_h,uint16_t resolution_v,uint32_t bitrate,uint16_t rotation,const char *uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_LEN];
@@ -170,7 +170,7 @@ static inline uint16_t mavlink_msg_set_video_stream_settings_pack_chan(uint8_t s
  */
 static inline uint16_t mavlink_msg_set_video_stream_settings_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_video_stream_settings_t* set_video_stream_settings)
 {
-    return mavlink_msg_set_video_stream_settings_pack(system_id, component_id, msg, set_video_stream_settings->framerate, set_video_stream_settings->bitrate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->rotation, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->uri);
+    return mavlink_msg_set_video_stream_settings_pack(system_id, component_id, msg, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->framerate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->bitrate, set_video_stream_settings->rotation, set_video_stream_settings->uri);
 }
 
 /**
@@ -184,26 +184,26 @@ static inline uint16_t mavlink_msg_set_video_stream_settings_encode(uint8_t syst
  */
 static inline uint16_t mavlink_msg_set_video_stream_settings_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_video_stream_settings_t* set_video_stream_settings)
 {
-    return mavlink_msg_set_video_stream_settings_pack_chan(system_id, component_id, chan, msg, set_video_stream_settings->framerate, set_video_stream_settings->bitrate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->rotation, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->uri);
+    return mavlink_msg_set_video_stream_settings_pack_chan(system_id, component_id, chan, msg, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->framerate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->bitrate, set_video_stream_settings->rotation, set_video_stream_settings->uri);
 }
 
 /**
  * @brief Send a set_video_stream_settings message
  * @param chan MAVLink channel to send the message
  *
- * @param framerate Frames per second (set to -1 for highest framerate possible)
- * @param bitrate Bit rate in bits per second (set to -1 for auto)
- * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
- * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
- * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param target_system system ID of the target
  * @param target_component component ID of the target
  * @param camera_id Camera ID (1 for first, 2 for second, etc.)
+ * @param framerate Frames per second (set to -1 for highest framerate possible)
+ * @param resolution_h Resolution horizontal in pixels (set to -1 for highest resolution possible)
+ * @param resolution_v Resolution vertical in pixels (set to -1 for highest resolution possible)
+ * @param bitrate Bit rate in bits per second (set to -1 for auto)
+ * @param rotation Video image rotation clockwise (0-359 degrees)
  * @param uri Video stream URI
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_set_video_stream_settings_send(mavlink_channel_t chan, float framerate, uint32_t bitrate, uint16_t resolution_h, uint16_t resolution_v, uint16_t rotation, uint8_t target_system, uint8_t target_component, uint8_t camera_id, const char *uri)
+static inline void mavlink_msg_set_video_stream_settings_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t camera_id, float framerate, uint16_t resolution_h, uint16_t resolution_v, uint32_t bitrate, uint16_t rotation, const char *uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_LEN];
@@ -240,7 +240,7 @@ static inline void mavlink_msg_set_video_stream_settings_send(mavlink_channel_t 
 static inline void mavlink_msg_set_video_stream_settings_send_struct(mavlink_channel_t chan, const mavlink_set_video_stream_settings_t* set_video_stream_settings)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_set_video_stream_settings_send(chan, set_video_stream_settings->framerate, set_video_stream_settings->bitrate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->rotation, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->uri);
+    mavlink_msg_set_video_stream_settings_send(chan, set_video_stream_settings->target_system, set_video_stream_settings->target_component, set_video_stream_settings->camera_id, set_video_stream_settings->framerate, set_video_stream_settings->resolution_h, set_video_stream_settings->resolution_v, set_video_stream_settings->bitrate, set_video_stream_settings->rotation, set_video_stream_settings->uri);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS, (const char *)set_video_stream_settings, MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_MIN_LEN, MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_LEN, MAVLINK_MSG_ID_SET_VIDEO_STREAM_SETTINGS_CRC);
 #endif
@@ -254,7 +254,7 @@ static inline void mavlink_msg_set_video_stream_settings_send_struct(mavlink_cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_set_video_stream_settings_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float framerate, uint32_t bitrate, uint16_t resolution_h, uint16_t resolution_v, uint16_t rotation, uint8_t target_system, uint8_t target_component, uint8_t camera_id, const char *uri)
+static inline void mavlink_msg_set_video_stream_settings_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t target_system, uint8_t target_component, uint8_t camera_id, float framerate, uint16_t resolution_h, uint16_t resolution_v, uint32_t bitrate, uint16_t rotation, const char *uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -290,56 +290,6 @@ static inline void mavlink_msg_set_video_stream_settings_send_buf(mavlink_messag
 
 
 /**
- * @brief Get field framerate from set_video_stream_settings message
- *
- * @return Frames per second (set to -1 for highest framerate possible)
- */
-static inline float mavlink_msg_set_video_stream_settings_get_framerate(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_float(msg,  0);
-}
-
-/**
- * @brief Get field bitrate from set_video_stream_settings message
- *
- * @return Bit rate in bits per second (set to -1 for auto)
- */
-static inline uint32_t mavlink_msg_set_video_stream_settings_get_bitrate(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint32_t(msg,  4);
-}
-
-/**
- * @brief Get field resolution_h from set_video_stream_settings message
- *
- * @return Resolution horizontal in pixels (set to -1 for highest resolution possible)
- */
-static inline uint16_t mavlink_msg_set_video_stream_settings_get_resolution_h(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint16_t(msg,  8);
-}
-
-/**
- * @brief Get field resolution_v from set_video_stream_settings message
- *
- * @return Resolution vertical in pixels (set to -1 for highest resolution possible)
- */
-static inline uint16_t mavlink_msg_set_video_stream_settings_get_resolution_v(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint16_t(msg,  10);
-}
-
-/**
- * @brief Get field rotation from set_video_stream_settings message
- *
- * @return Video image rotation clockwise (0-359 degrees)
- */
-static inline uint16_t mavlink_msg_set_video_stream_settings_get_rotation(const mavlink_message_t* msg)
-{
-    return _MAV_RETURN_uint16_t(msg,  12);
-}
-
-/**
  * @brief Get field target_system from set_video_stream_settings message
  *
  * @return system ID of the target
@@ -367,6 +317,56 @@ static inline uint8_t mavlink_msg_set_video_stream_settings_get_target_component
 static inline uint8_t mavlink_msg_set_video_stream_settings_get_camera_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  16);
+}
+
+/**
+ * @brief Get field framerate from set_video_stream_settings message
+ *
+ * @return Frames per second (set to -1 for highest framerate possible)
+ */
+static inline float mavlink_msg_set_video_stream_settings_get_framerate(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  0);
+}
+
+/**
+ * @brief Get field resolution_h from set_video_stream_settings message
+ *
+ * @return Resolution horizontal in pixels (set to -1 for highest resolution possible)
+ */
+static inline uint16_t mavlink_msg_set_video_stream_settings_get_resolution_h(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  8);
+}
+
+/**
+ * @brief Get field resolution_v from set_video_stream_settings message
+ *
+ * @return Resolution vertical in pixels (set to -1 for highest resolution possible)
+ */
+static inline uint16_t mavlink_msg_set_video_stream_settings_get_resolution_v(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  10);
+}
+
+/**
+ * @brief Get field bitrate from set_video_stream_settings message
+ *
+ * @return Bit rate in bits per second (set to -1 for auto)
+ */
+static inline uint32_t mavlink_msg_set_video_stream_settings_get_bitrate(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  4);
+}
+
+/**
+ * @brief Get field rotation from set_video_stream_settings message
+ *
+ * @return Video image rotation clockwise (0-359 degrees)
+ */
+static inline uint16_t mavlink_msg_set_video_stream_settings_get_rotation(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  12);
 }
 
 /**
